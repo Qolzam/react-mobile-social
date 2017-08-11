@@ -1,0 +1,97 @@
+// - Import components
+var uuid = require('uuid');
+import moment from 'moment'
+
+// - Import action types
+import * as types from './../constants/actionTypes'
+
+/* ---------------- */
+
+
+/**
+ * Default State
+ */
+var defaultState = {
+  userPosts: {},
+  loaded: false
+}
+
+
+/**
+ * Post reducer
+ * @param {object} state 
+ * @param {object} action 
+ */
+export var postReducer = (state = defaultState, action) => {
+  const { payload } = action
+  switch (action.type) {
+    case types.CLEAR_ALL_DATA_POST:
+      return defaultState
+
+    case types.ADD_IMAGE_POST:
+      return {
+        ...state,
+        userPosts: {
+          [payload.uid]: {
+            ...state[payload.uid],
+            [payload.post.id]: { ...payload.post }
+          }
+        }
+      }
+
+    case types.ADD_POST:
+      return {
+        ...state,
+        userPosts: {
+          [payload.uid]: {
+            ...state[payload.uid],
+            [payload.post.id]: { ...payload.post }
+          }
+        }
+      }
+
+    case types.UPDATE_POST:
+      return {
+        ...state,
+        userPosts: {
+          [payload.uid]: {
+            ...state[payload.uid],
+            [payload.post.id]: { ...payload.post }
+          }
+        }
+      }
+
+    case types.DELETE_POST:
+      let filteredPosts = {}
+      Object.keys(state[payload.uid]).map((key) => {
+        if (key !== payload.id) {
+          return _.merge(filteredPosts, { [key]: { ...state[payload.uid][key] } })
+        }
+      })
+      return {
+        ...state,
+        userPosts: {
+          [payload.uid]: {
+            ...filteredPosts
+          }
+        }
+      }
+    case types.ADD_LIST_POST:
+      return {
+        ...state,
+        userPosts: {
+          ...state.userPosts,
+          [payload.uid]: {
+            ...state[payload.uid],
+            ...payload.posts
+          }
+        },
+        loaded:true
+
+      }
+
+    default:
+      return state;
+
+  }
+}
