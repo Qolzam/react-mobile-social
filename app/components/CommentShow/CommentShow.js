@@ -60,17 +60,17 @@ export class CommentShow extends Component {
     const { animatedValue, animatedkey, comment, avatar } = this.props
 
     return (
-      <Animated.View style={{ position: 'absolute', opacity: animatedValue, backgroundColor: "#f9f9f9", flexDirection: 'row', justifyContent: 'flex-start', paddingLeft: 15, alignItems: 'center' }}>
+      <Animated.View style={styles.commentShow}>
         <Avatar size="25" name={comment.userDisplayName} fileName={avatar} />
-        <View style={{ display: 'flex', flex: 1, flexDirection: 'column', marginLeft: 10, paddingTop: 5, paddingBottom: 5 }}>
-          <Text style={{fontSize:12}}>{comment.userDisplayName}</Text>
-          <View style={{ flexDirection: 'row',height:20}}>
-            <Text style={{ flex: 1, flexWrap: 'wrap', color:'#212121',fontSize:12}} numberOfLines={1}>
+        <View style={styles.content}>
+          <Text style={styles.name}>{comment.userDisplayName}</Text>
+          <View style={styles.textLayout}>
+            <Text style={styles.text} numberOfLines={1}>
               {comment.text}
             </Text>
           </View>
         </View>
-        <Text style={{ position:'absolute',right:3,top:3, fontSize: 10 }}>8m</Text>
+        <Text style={styles.date}>8m</Text>
       </Animated.View>
     )
 

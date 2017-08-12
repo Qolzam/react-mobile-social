@@ -37,13 +37,13 @@ export class Comment extends Component {
   render() {
 
     return (
-        <CardSection style={{position:'absolute', backgroundColor: "#f9f9f9",flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
+        <CardSection style={styles.comment}>
           <Avatar size="30" name='name' fileName='filename' />
-                      <View style={{ display: 'flex', flex: 1, flexDirection: 'column', marginLeft: 10, paddingTop: 5, paddingBottom: 5 }}>
+                      <View style={styles.contetnt}>
               <Text>Homed Form Ios</Text>
               <Text>Homed Form Ios</Text>
             </View>
-          <Text style={{ fontSize: 10 }}>8m</Text>
+          <Text style={styles.date}>8m</Text>
          </CardSection>
     )
 
