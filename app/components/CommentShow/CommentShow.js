@@ -35,7 +35,7 @@ export class CommentShow extends Component {
   static propTypes = {
 
     /**
-     * Comments 
+     * Comment
      */
     comment: PropTypes.object
   }
