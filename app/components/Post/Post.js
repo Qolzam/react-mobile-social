@@ -130,46 +130,39 @@ export class Post extends Component {
     const { body, ownerDisplayName, creationDate,avatar, image, comments, commentCount } = this.props
     return (
       <Animatable.View animation="slideInUp">
-        <Card style={{ margin: 0 }}>
+        <Card style={styles.post}>
 
-          <CardSection style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <CardSection style={styles.header}>
             <Avatar size="30" name={ownerDisplayName} fileName={avatar} />
-            <View style={{ display: 'flex', flex: 1, flexDirection: 'row', marginLeft: 10, paddingTop: 5, paddingBottom: 10 }}>
-              <Text style={{
-                textAlign: 'justify',
-                borderRightWidth: 30,
-              }}>{ownerDisplayName}</Text>
+            <View style={styles.name}>
+              <Text style={styles.nameText}>{ownerDisplayName}</Text>
 
             </View>
-            <Text style={{ fontSize: 10 }}>{moment.unix(creationDate).fromNow()}</Text>
+            <Text style={styles.nameText}>{moment.unix(creationDate).fromNow()}</Text>
 
           </CardSection>
 
 
             <Img fileName={image} />
         
-          <View style={{ padding: 10}}>
-            <Text style={{ fontWeight: '100' }}>{body}</Text>
+          <View style={styles.body}>
+            <Text style={styles.bodyText}>{body}</Text>
           </View>
-          <CardSection style={{ flexDirection: 'row', marginTop:10}}>
+          <CardSection style={styles.footer}>
 
-            <View style={{ flex: 1 }}>
-              <View style={{ backgroundColor: '#eeeeee', borderRadius: (33 * 0.5), width: 33, height: 33 }}>
-                <Icon name="favorite-border" size={20} style={{ color: '#757575', margin: 7, backgroundColor: "transparent" }} onPress={this.loginWithFacebook} />
+            <View style={styles.footerLeft}>
+              <View style={styles.favorite}>
+                <Icon name="favorite-border" size={20} style={styles.favoriteIcon} onPress={this.loginWithFacebook} />
               </View>
             </View>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ backgroundColor: '#eeeeee', borderRadius: (33 * 0.5), width: 33, height: 33 }}>
-                <Icon name="comment" size={20} style={{ color: '#757575', margin: 7, backgroundColor: "transparent" }} onPress={this.loginWithFacebook} />
+            <View style={styles.footerRight}>
+              <View style={styles.comment}>
+                <Icon name="comment" size={20} style={styles.commentIcon} onPress={this.loginWithFacebook} />
               </View>
-              <View style={{ backgroundColor: '#eeeeee', borderRadius: (33 * 0.5), width: 33, height: 33, marginLeft: 8 }}>
-                <Icon name="share" size={20} style={{ color: '#757575', margin: 7, backgroundColor: "transparent" }} onPress={this.loginWithFacebook} />
+              <View style={styles.share}>
+                <Icon name="share" size={20} style={styles.shareIcon} onPress={this.loginWithFacebook} />
               </View>
             </View>
-          </CardSection>
-
-          <CardSection style={{ paddingTop: 0 }}>
-
           </CardSection>
         </Card>
          { commentCount > 0 ? <CommentList comments={comments} /> : <Text></Text> }

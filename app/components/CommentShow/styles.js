@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     commentShow: {
         position: 'absolute',
-        opacity: animatedValue,
         backgroundColor: "#f9f9f9",
         flexDirection: 'row',
         justifyContent: 'flex-start',

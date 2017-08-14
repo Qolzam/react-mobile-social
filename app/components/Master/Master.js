@@ -60,7 +60,7 @@ export class Master extends Component {
     const {windowSize} = this.props
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ position: 'absolute', zIndex: 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 80, left: (windowSize.width * 0.5) - 20 }}>
+        <View style={[styles.loadingLayout,{left: (windowSize.width * 0.5) - 20}]}>
           {(this.props.loading) ? <Spinner size="small" /> : <Text></Text>
           }
         </View>

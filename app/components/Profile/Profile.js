@@ -47,21 +47,21 @@ export class Profile extends Component {
   render() {
     const { avatar, name, tagLine, banner, windowSize } = this.props
     return (
-      <View style={{ flex: 1, flexDirection:'column',backgroundColor:'#ffffff'}}>
+      <View style={styles.profile}>
         <ScrollView>
-          <View style={{minHeight:100}}>
-          <Img fileName={banner}/>
+          <View style={styles.banner}>
+            <Img fileName={banner} />
           </View>
-          <View style={{ position: 'relative',flex: 1,height:60 }}>
-            <View style={{ backgroundColor: '#ffffff', borderRadius: (74 * 0.5), width: 74, height: 74,position: 'absolute', top: -40, left: (windowSize.width * 0.5) - 40 }}>
-            <Avatar size="70" name={name || 'O'} fileName={avatar} style={{ transform: [{translateX: 2}, {translateY: 2}] }} />
+          <View style={styles.avatarLayout}>
+            <View style={[styles.avatarContainer,{left: (windowSize.width * 0.5) - 40}]}>
+              <Avatar size="70" name={name || 'O'} fileName={avatar} style={styles.avatar} />
             </View>
           </View>
-          <View style={{ position:'relative',padding: 5, flexDirection: 'row', flex: 1, justifyContent:'center',alignContent:'center'}}>
-            <Text style={{ fontWeight: '500',fontSize:20 }}>{name}</Text>
+          <View style={styles.name}>
+            <Text style={styles.nameText}>{name}</Text>
           </View>
-          <View style={{ position:'relative',padding: 5, flexDirection: 'row', flex: 1, justifyContent:'center',alignContent:'center'}}>
-            <Text style={{ fontWeight: '100' }}>{tagLine}</Text>
+          <View style={styles.tagLine}>
+            <Text style={styles.tagLineText}>{tagLine}</Text>
           </View>
 
 

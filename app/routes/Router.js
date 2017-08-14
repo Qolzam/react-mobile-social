@@ -41,15 +41,15 @@ export const Tabs = TabNavigator({
 })
 
 export const MasterNavigator = StackNavigator({
-  CreatePost: { 
-    screen: CreatePost 
-  },
   Login: {
     screen: Login,
   },
   Tabs: {
     screen: Tabs,
   },
+              CreatePost: { 
+                screen: CreatePost 
+              },
 }, {
     mode: 'modal',
     headerMode: 'screen'

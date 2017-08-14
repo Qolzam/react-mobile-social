@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Slider, ScrollView, View, Text, Image, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
-import UserAvatar from 'react-native-user-avatar'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { changeData, dbLogin } from './../../actions'
 import { Card, CardSection, Input, Button, Spinner } from './../../layouts'
@@ -28,6 +27,7 @@ import PostAPI from './../../api/PostAPI'
 // - Import app components
 import Post from './../Post'
 import Avatar from './../Avatar'
+import WritePostButton from './../WritePostButton'
 
 // - Import component styles 
 import styles from './styles'
@@ -55,7 +55,7 @@ export class Home extends Component {
       tabBarLabel: 'Home',
       // Note: By default the icon is only shown on iOS. Search the showIcon option below.
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="home" size={26} style={{ color: tintColor, backgroundColor: "transparent" }} />
+        <Icon name="home" size={26} style={[styles.tabIcon,{color: tintColor}]} />
       )
 
     }
@@ -116,40 +116,20 @@ export class Home extends Component {
   render() {
     const { loaded, navigation, name, avatar } = this.props
     const { navigate } = navigation
-
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => navigate('CreatePost')}>
-          <Card >
-            <View style={{ flexDirection: 'row', padding: 8 }}>
-              <Avatar size="30" name={name || ' '} fileName={avatar} />
-              <View style={{ display: 'flex', flex: 1, flexDirection: 'column', marginLeft: 10, paddingTop: 5, paddingBottom: 5 }}>
-                <Text style={{ fontWeight: '100', fontSize: 15, color: '#9e9e9e' }}>What is new with you?</Text>
-              </View>
-              <View style={{ backgroundColor: '#eeeeee', borderRadius: (33 * 0.5), width: 33, height: 33 }}>
-                <Icon name="photo-camera" size={20} style={{ color: '#757575', margin: 7, backgroundColor: "transparent" }} onPress={this.loginWithFacebook} />
-              </View>
-            </View>
-          </Card>
-          </TouchableOpacity>
+          <WritePostButton openRequest={() => navigate('CreatePost')}/>
           {!loaded
-            ? (<View style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 100
-
-            }}>
+            ? (<View style={styles.spinnerLoding}>
               <Spinner size="small" />
-              <Text style={{ marginTop: 10 }}> Your data is loading ...</Text>
+              <Text style={styles.textLoading}> Your data is loading ...</Text>
             </View>)
             : this.fetchPosts()}
         </ScrollView>
         <TouchableOpacity activeOpacity={0.7} onPress={() => navigate('CreatePost')}>
-          <View style={{ bottom: 8, right: 8, backgroundColor: '#4CAF50', borderRadius: (44 * 0.5), width: 44, height: 44, marginLeft: 8, position: 'absolute' }}>
-            <Icon name="create" size={30} style={{ color: '#ffffff', margin: 7, backgroundColor: "transparent" }} onPress={this.loginWithFacebook} />
+          <View style={styles.createPostLayout}>
+            <Icon name="create" size={30} style={styles.createPostIcon} onPress={this.loginWithFacebook} />
           </View>
         </TouchableOpacity>
       </View>

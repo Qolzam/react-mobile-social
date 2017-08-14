@@ -65,7 +65,7 @@ export class Login extends Component {
     if(this.props.loading)
       {
         return (
-              <Button textStyle={{color: 'grey',}} buttonStyle={{borderColor: 'grey'}}>
+              <Button textStyle={styles.buttonText} buttonStyle={styles.button}>
                 Loading ...
               </Button>
             )

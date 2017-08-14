@@ -60,7 +60,7 @@ export class CommentShow extends Component {
     const { animatedValue, animatedkey, comment, avatar } = this.props
 
     return (
-      <Animated.View style={styles.commentShow}>
+      <Animated.View style={[styles.commentShow,{ opacity: animatedValue}]}>
         <Avatar size="25" name={comment.userDisplayName} fileName={avatar} />
         <View style={styles.content}>
           <Text style={styles.name}>{comment.userDisplayName}</Text>
