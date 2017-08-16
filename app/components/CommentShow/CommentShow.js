@@ -70,7 +70,6 @@ export class CommentShow extends Component {
             </Text>
           </View>
         </View>
-        <Text style={styles.date}>8m</Text>
       </Animated.View>
     )
 

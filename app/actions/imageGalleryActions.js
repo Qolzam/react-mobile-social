@@ -165,6 +165,7 @@ export const dbDownloadImage = (fileName) => {
       // Insert url into an <img> tag to "download"
       if (!getState().imageGallery.imageURLList[fileName] || fileName === '')
         dispatch(setImageURL(fileName, url))
+      
     }).catch((error) => {
 
       // A full list of error codes is available at

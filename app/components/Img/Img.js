@@ -2,9 +2,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import CachedImage from 'react-native-cached-image'
+import {CustomCachedImage} from "react-native-img-cache"
+import Image from 'react-native-image-progress'
+import ProgressBar from 'react-native-progress/Bar'
 import {
-  Image,
   View,
   Text
 } from 'react-native'
@@ -26,7 +27,7 @@ import * as imageGalleryActions from './../../actions/imageGalleryActions'
  */
 export class Img extends Component {
 
-    static propTypes = {
+  static propTypes = {
 
     /**
      * Use for getting url address from server
@@ -72,14 +73,19 @@ export class Img extends Component {
   render() {
 
     let { fileName, style } = this.props
-    let fileExist = (!this.props.avatarURL[fileName] || this.props.avatarURL[fileName] === '') 
+    let fileExist = (!this.props.avatarURL[fileName] || this.props.avatarURL[fileName] === '')
     return (
-               <CardSection style={!fileExist ? { padding: 0} : { padding: 0 , height:0}} >
-        {fileExist ? <Text></Text> : (<CachedImage style={[styles.image,style]}
-        source={{ uri: this.props.avatarURL[fileName] }}
-      />)}
-      
-    </CardSection>
+      <CardSection style={!fileExist ? { padding: 0 } : { padding: 0, height: 0 }} >
+        {fileExist ? <Text></Text> : (
+          <CustomCachedImage
+          component={Image} 
+          style={[styles.image, style]}
+          indicator={ProgressBar.Pie} 
+          source={{ uri: this.props.avatarURL[fileName] }}
+        />
+        )}
+
+      </CardSection>
     )
 
   }
