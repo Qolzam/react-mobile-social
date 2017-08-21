@@ -1,7 +1,6 @@
 // - Import react components
 import { firebaseRef, firebaseAuth } from '../firebase'
 import moment from 'moment'
-import { createAction as action } from 'redux-actions'
 import { NavigationActions } from 'react-navigation'
 
 

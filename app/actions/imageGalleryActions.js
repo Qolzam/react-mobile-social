@@ -5,8 +5,11 @@ import {firebaseRef, firebaseAuth, storageRef} from '../firebase'
 // - Import image gallery action types
 import * as types from './../constants/actionTypes'
 
+// - Import actions
+import * as globalActions from './globalActions'
+
 // - Import app API
-import * as FileAPI from '../api/FileAPI'
+import FileAPI from '../api/FileAPI'
 
 /* _____________ UI Actions _____________ */
 
@@ -116,27 +119,27 @@ export const dbDeleteImage = (id) => {
  */
 export const dbUploadImage = (file, fileName) => {
   return (dispatch, getState) => {
+
     // Create a storage refrence
     var storegeFile = storageRef.child(`images/${fileName}`)
 
     // Upload file
     var task = storegeFile.put(file)
-    dispatch(globalActions.showTopLoading())
+    dispatch(globalActions.showLoading())
 
     // Upload storage bar
     task.on('state_changed', (snapshot) => {
       var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       dispatch(globalActions.progressChange(percentage, true))
-
-
+    
     }, (error) => {
       dispatch(globalActions.showErrorMessage(error.code))
-      dispatch(globalActions.hideTopLoading())
+      dispatch(globalActions.hideLoading())
 
     }, (complete) => {
       dispatch(globalActions.progressChange(100, false))
       dispatch(dbSaveImage(fileName))
-      dispatch(globalActions.hideTopLoading())
+      dispatch(globalActions.hideLoading())
     })
   }
 }

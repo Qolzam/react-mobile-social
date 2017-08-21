@@ -57,7 +57,7 @@ export class Master extends Component {
 
   render() {
 
-    const {windowSize} = this.props
+    const {windowSize,error} = this.props
     return (
       <View style={{ flex: 1 }}>
         <View style={[styles.loadingLayout,{left: (windowSize.width * 0.5) - 20}]}>
@@ -66,6 +66,7 @@ export class Master extends Component {
         </View>
 
         <Router />
+        <Text>{error}</Text>
       </View>
     )
 
@@ -88,8 +89,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
  * @param {object} param0 
  */
 const mapStateToProps = ({ global }) => {
-  const { loading, windowSize } = global
-  return { loading ,windowSize}
+  const { loading, windowSize,error } = global
+  return { loading ,windowSize, error}
 }
 
 /**

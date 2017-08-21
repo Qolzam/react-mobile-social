@@ -2,6 +2,7 @@
 var uuid = require('uuid');
 import moment from 'moment'
 
+
 // - Import action types
 import * as types from './../constants/actionTypes'
 
@@ -32,8 +33,9 @@ export var postReducer = (state = defaultState, action) => {
       return {
         ...state,
         userPosts: {
+          ...state.userPosts,          
           [payload.uid]: {
-            ...state[payload.uid],
+            ...state.userPosts[payload.uid],
             [payload.post.id]: { ...payload.post }
           }
         }
@@ -43,8 +45,9 @@ export var postReducer = (state = defaultState, action) => {
       return {
         ...state,
         userPosts: {
+          ...state.userPosts,          
           [payload.uid]: {
-            ...state[payload.uid],
+            ...state.userPosts[payload.uid],
             [payload.post.id]: { ...payload.post }
           }
         }
@@ -54,23 +57,28 @@ export var postReducer = (state = defaultState, action) => {
       return {
         ...state,
         userPosts: {
+          ...state.userPosts,          
           [payload.uid]: {
-            ...state[payload.uid],
-            [payload.post.id]: { ...payload.post }
+            ...state.userPosts[payload.uid],
+            [payload.post.id]: {
+              ...state.userPosts[payload.uid][payload.post.id],
+              ...payload.post 
+            }
           }
         }
       }
 
     case types.DELETE_POST:
       let filteredPosts = {}
-      Object.keys(state[payload.uid]).map((key) => {
+      Object.keys(state.userPosts[payload.uid]).map((key) => {
         if (key !== payload.id) {
-          return _.merge(filteredPosts, { [key]: { ...state[payload.uid][key] } })
+          return _.merge(filteredPosts, { [key]: { ...state.userPosts[payload.uid][key] } })
         }
       })
       return {
         ...state,
         userPosts: {
+          ...state.userPosts,          
           [payload.uid]: {
             ...filteredPosts
           }
@@ -82,7 +90,7 @@ export var postReducer = (state = defaultState, action) => {
         userPosts: {
           ...state.userPosts,
           [payload.uid]: {
-            ...state[payload.uid],
+            ...state.userPosts[payload.uid],
             ...payload.posts
           }
         },

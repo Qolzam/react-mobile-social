@@ -138,7 +138,7 @@ export class Post extends Component {
               <Text style={styles.nameText}>{ownerDisplayName}</Text>
 
             </View>
-            <Text style={styles.nameText}>{moment.unix(creationDate).fromNow()}</Text>
+            <Text style={styles.dateText}>{moment.unix(creationDate).fromNow()}</Text>
 
           </CardSection>
 

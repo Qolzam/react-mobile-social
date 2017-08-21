@@ -1,11 +1,16 @@
 // - Import firebase component
-import firebase, {firebaseRef} from '../firebase'
+import firebase, {firebaseRef, storageRef} from '../firebase'
+import { NavigationActions } from 'react-navigation'
 
 // - Import utility components
 import moment from 'moment'
 
 // - Import action types
 import * as types from './../constants/actionTypes'
+
+// - Import actions
+import * as globalActions from './globalActions'
+import * as imageGalleryActions from './imageGalleryActions'
 
 
 /* _____________ CRUD DB _____________ */
@@ -15,52 +20,12 @@ import * as types from './../constants/actionTypes'
  * @param {object} newPost 
  * @param {function} callBack 
  */
-export var dbAddPost = (newPost,callBack) => {
+export var dbAddPost = (newPost) => {
   return(dispatch,getState) => {
 
     var uid = getState().authorize.uid
+
     var post = {
-           postTypeId: 0,
-           creationDate: moment().unix(),
-           deletationDate: '',
-           score: 0,
-           viewCount: 0,
-           body: newPost.body,
-           ownerUserId: uid,
-           ownerDisplayName: newPost.name,
-           ownerAvatar: newPost.avatar,
-           lastEditDate: '',
-           tags: newPost.tags || [],
-           commentCounter: 0,
-           image:'',
-           video:'',
-           disableComments: newPost.disableComments,
-           disableSharing: newPost.disableSharing,
-           deleted:false
-         }
-
-
-    var postRef = firebaseRef.child(`userPosts/${uid}/posts`).push(post)
-    return postRef.then(()=>{
-      dispatch(addPost(uid,{
-        ...post,
-        id: postRef.key
-      }))
-      callBack()
-    },(error) => dispatch(globalActions.showErrorMessage(error.message)))
-  }
-}
-
-
-/**
- * Add a post with image
- * @param {object} newPost 
- * @param {function} callBack 
- */
- export const dbAddImagePost = (newPost,callBack) => {
-   return(dispatch,getState) => {
-     var uid = getState().authorize.uid
-     var post = {
             postTypeId: 1,
             creationDate: moment().unix(),
             deletationDate: '',
@@ -80,16 +45,56 @@ export var dbAddPost = (newPost,callBack) => {
             deleted:false
           }
 
-
      var postRef = firebaseRef.child(`userPosts/${uid}/posts`).push(post)
      return postRef.then(()=>{
        dispatch(addPost(uid,{
          ...post,
          id: postRef.key
        }))
-       callBack()
+      dispatch(NavigationActions.back())
 
-     })
+     },
+     (error) => dispatch(globalActions.showErrorMessage(error.message)))
+  }
+}
+
+
+/**
+ * Add a post with image
+ * @param {object} newPost 
+ * @param {function} callBack 
+ */
+ export const dbAddImagePost = (newPost,image, imageName) => {
+   return(dispatch,getState) => {
+     var uid = getState().authorize.uid
+    if(image)
+      {
+
+    // Create a storage refrence
+    var storegeFile = storageRef.child(`images/${imageName}`)
+    
+        // Upload file
+        var task = storegeFile.put(image)
+        dispatch(globalActions.showLoading())
+    
+        // Upload storage bar
+        task.on('state_changed', (snapshot) => {
+          var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          dispatch(globalActions.progressChange(percentage, true))
+        
+        }, (error) => {
+          dispatch(globalActions.showErrorMessage(error.code))
+          dispatch(globalActions.hideLoading())
+    
+        }, (complete) => {
+          dispatch(globalActions.progressChange(100, false))
+          dispatch(imageGalleryActions.dbSaveImage(imageName))
+          dispatch(dbAddPost({...newPost, image:imageName}))
+          dispatch(globalActions.hideLoading())
+        })
+      }
+
+    
    }
 
  }

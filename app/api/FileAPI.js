@@ -4,6 +4,9 @@ import { storageRef } from '../firebase'
 
 // - Get file Extension
 const getExtension = (fileName) => {
+    console.log('====================================');
+    console.log('Extension');
+    console.log('====================================');
   var re = /(?:\.([^.]+))?$/;
   return re.exec(fileName)[1];
 }
