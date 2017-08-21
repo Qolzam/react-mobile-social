@@ -1,7 +1,7 @@
 // - Import react components
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Slider, View, Text} from 'react-native'
+import {Slider, View, Text, Image} from 'react-native'
 import { changeData, dbLogin } from './../../actions';
 import { Card, CardSection, Input, Button, Spinner }  from './../../layouts'
 
@@ -82,6 +82,19 @@ export class Login extends Component {
     return (
   
       <Card>
+        
+        <CardSection style={styles.logo}>
+          <Image
+          style={{width: 100, height: 100}}
+          source={{uri: 'https://raw.githubusercontent.com/Qolzam/react-social-network/master/docs/app/logo.png'}}
+        />        
+        </CardSection>
+        <View
+  style={{
+    borderBottomColor: '#eeeeee',
+    borderBottomWidth: 1,
+  }}
+/>
         <CardSection>
           <Input
             label="Email"
@@ -109,7 +122,7 @@ export class Login extends Component {
           {this.renderButton()}
         </CardSection>
     </Card>
-    );
+    )
   }
 }
 

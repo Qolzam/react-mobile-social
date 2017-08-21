@@ -58,10 +58,8 @@ export class CreatePost extends Component {
     return {
       title: 'Create Post',
       headerTintColor: "#616161",
-      headerStyle: {
-        backgroundColor: "#ffffff"
-      },
-      headerRight: (<TouchableOpacity onPress={() => params.handleSavePost()}><Icon name="done" color={params.enableSavePost ? '#339dd4' : '#eeeeee'} size={20} style={{ marginRight: 10 }} /></TouchableOpacity>)
+      headerStyle: styles.header,
+      headerRight: (<TouchableOpacity onPress={() => params.handleSavePost()}><Icon name="done" color={params.enableSavePost ? '#339dd4' : '#eeeeee'} size={20} style={styles.headerRight} /></TouchableOpacity>)
     }
   }
 
@@ -319,10 +317,10 @@ export class CreatePost extends Component {
       >
         <ScrollView>
           <Card>
-            <View style={{ flexDirection: 'row', padding: 8 }}>
+            <View style={styles.userInfo}>
               <Avatar size="30" name={name || ' '} fileName={avatar} />
-              <View style={{ display: 'flex', flex: 1, flexDirection: 'column', marginLeft: 10, paddingTop: 5, paddingBottom: 5 }}>
-                <Text style={{}}>{name}</Text>
+              <View style={styles.name}>
+                <Text>{name}</Text>
               </View>
             </View>
             <View>
@@ -336,17 +334,17 @@ export class CreatePost extends Component {
                 placeholder='What is new with you?'
               />
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.menu}>
               <TouchableOpacity activeOpacity={0.7} onPress={() => this.showGallery()}>
-                <Icon name="photo-camera" size={20} style={{ color: '#757575', margin: 7, backgroundColor: "transparent" }} onPress={this.showGallery} />
+                <Icon name="photo-camera" size={20} style={styles.cameraIcon} onPress={this.showGallery} />
               </TouchableOpacity>
               {keyboardVisible ? (<TouchableOpacity activeOpacity={0.7} onPress={() => Keyboard.dismiss()}>
-                <Icon name="keyboard-hide" size={20} style={{ color: '#757575', margin: 7, backgroundColor: "transparent" }} onPress={this.loginWithFacebook} />
+                <Icon name="keyboard-hide" size={20} style={styles.keyboardIcon} onPress={this.loginWithFacebook} />
               </TouchableOpacity>) : <Text></Text>}
             </View>
             {imageHeight > 0 ? (<View>
-              <TouchableOpacity style={{ backgroundColor: '#eeeeee', borderRadius: (24 * 0.5), width: 24, height: 24, position: 'absolute', zIndex: 5, top: 3, right: 3 }} activeOpacity={0.7} onPress={() => navigate('CreatePost')}>
-                <Icon name="remove-circle" size={20} style={{ color: '#757575', margin: 2, backgroundColor: "transparent" }} onPress={this.deleteImage} />
+              <TouchableOpacity style={styles.removeImage} activeOpacity={0.7} onPress={() => navigate('CreatePost')}>
+                <Icon name="remove-circle" size={20} style={styles.removeImageIcon} onPress={this.deleteImage} />
               </TouchableOpacity>
               <Image style={{ width: null, height: imageHeight < 380 ? imageHeight : 380 }} source={imageSource} />
             </View>) : <Text></Text>}

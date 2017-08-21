@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
   },
   button: {
     borderColor: 'grey'
+  },
+  logo: {
+    flexDirection: 'row',
+    justifyContent: 'center'
   }
 })
 export default styles
