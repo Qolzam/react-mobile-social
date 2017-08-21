@@ -75,7 +75,7 @@ export class CreatePost extends Component {
     super(props)
 
     this.state = {
-      text: 'Hello from mobile app!',
+      text: '',
       keyboardVisible: false,
       imageSource: null,
       imageHeight: 0,
