@@ -66,7 +66,7 @@ export class Master extends Component {
         </View>
 
         <Router />
-        <Text>{error}</Text>
+      
       </View>
     )
 

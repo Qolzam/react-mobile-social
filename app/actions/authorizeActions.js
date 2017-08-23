@@ -42,7 +42,7 @@ export var dbLogin = (email, password) => {
       // Hide loading on error
       dispatch(globalActions.hideLoading())
 
-      dispatch(globalActions.showErrorMessage(error.code))
+      dispatch(globalActions.showErrorMessageWithTimeout(error.code))
 
     })
   }
@@ -55,9 +55,15 @@ export var dbLogout = () => {
   return (dispatch, getState) => {
     return firebaseAuth().signOut().then((result) => {
       dispatch(logout())
-      // TODO: Change to login page
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'login' })
+        ]
+      })
+      dispatch(resetAction)
 
-    }, (error) => dispatch(globalActions.showErrorMessage(error.code)))
+    }, (error) => dispatch(globalActions.showErrorMessageWithTimeout(error.code)))
   }
 
 }
@@ -77,14 +83,20 @@ export var dbSignup = (user) => {
 
         dispatch(globalActions.showNotificationSuccess())
 
-      }, (error) => dispatch(globalActions.showErrorMessage(error.code)))
+      }, (error) => dispatch(globalActions.showErrorMessageWithTimeout(error.code)))
 
       dispatch(signup({
         uid: signupResult.uid,
         ...user
       }))
-      // TODO: Change to home page
-    }, (error) => dispatch(globalActions.showErrorMessage(error.code)))
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Tabs' })
+        ]
+      })
+      dispatch(resetAction)
+    }, (error) => dispatch(globalActions.showErrorMessageWithTimeout(error.code)))
   }
 
 }
@@ -108,7 +120,7 @@ export const dbUpdatePassword = (newPassword) => {
           // An error happened.
           switch (error.code) {
             case 'auth/requires-recent-login':
-              dispatch(globalActions.showErrorMessage(error.code))
+              dispatch(globalActions.showErrorMessageWithTimeout(error.code))
               dispatch(dbLogout())
               break;
             default:

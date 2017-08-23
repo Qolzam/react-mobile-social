@@ -3,7 +3,7 @@ import { TextInput, View, Text } from 'react-native'
 import styles from './styles'
 
 
-export const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+export const Input = ({ style, label, value, onChangeText, placeholder, secureTextEntry }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
   return (
@@ -13,7 +13,7 @@ export const Input = ({ label, value, onChangeText, placeholder, secureTextEntry
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         autoCorrect={false}
-        style={inputStyle}
+        style={[inputStyle,style]}
         value={value}
         onChangeText={onChangeText}
         autoCapitalize = 'none'

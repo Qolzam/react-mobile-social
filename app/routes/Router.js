@@ -8,6 +8,7 @@ import Login from './../components/Login'
 import Home from './../components/Home'
 import Profile from './../components/Profile'
 import CreatePost from './../components/CreatePost'
+import Signup from './../components/Signup'
 
 
 // const HomeScreen = StackNavigator({
@@ -43,6 +44,9 @@ export const Tabs = TabNavigator({
 export const MasterNavigator = StackNavigator({
   Login: {
     screen: Login,
+  },
+  Signup: {
+    screen: Signup,
   },
   Tabs: {
     screen: Tabs,

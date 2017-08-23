@@ -35,7 +35,10 @@ export default StyleSheet.create({
   },
   menu: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingLeft:12,
+    paddingRight:12
+
   },
   camerIcon: {
     color: '#757575',
