@@ -25,7 +25,7 @@ By participating, you are expected to uphold this code. Please report unacceptab
 <p align="center">
   <a href="#">
     <img src="https://raw.githubusercontent.com/Qolzam/react-mobile-social/master/docs/app/screen-gif.gif">
-
+</a>
 </p>
 
  # Authors
