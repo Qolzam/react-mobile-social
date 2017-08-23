@@ -13,9 +13,20 @@
 
 The React Mobile Social is an open source social app use [React Native](https://facebook.github.io/react-native/).
 
+<p align="center">
+  <a href="#">
+    <img src="https://raw.githubusercontent.com/Qolzam/react-mobile-social/master/docs/app/screen-shot_iphone7.png">
+
+</p>
+
 This project adheres to the Contributor Covenant [code of conduct](https://github.com/Qolzam/react-mobile-social/blob/master/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior to amir.gholzam@live.com.
 
+<p align="center">
+  <a href="#">
+    <img src="https://raw.githubusercontent.com/Qolzam/react-mobile-social/master/docs/app/screen-gif.gif">
+
+</p>
 
  # Authors
 
