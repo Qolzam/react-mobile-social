@@ -43,49 +43,20 @@ export class Img extends Component {
     super(props)
 
 
-    // Binding functions to `this`
-    this.getImageURL = this.getImageURL.bind(this)
-
   }
 
-  /**
-   * Get image url if it is not exist on redux store
-   * 
-   * @memberof Img
-   */
-  getImageURL = () => {
-    let { fileName } = this.props
-    if (fileName && fileName !== '') {
-      if (this.props.imageRequests.indexOf(fileName) > -1)
-        return
-      this.props.getImage(fileName)
-
-    }
-  }
-
-  componentWillMount() {
-    let { fileName } = this.props
-    if (this.props.imageRequests.indexOf(fileName) > -1)
-      return
-    this.getImageURL()
-  }
+ 
 
   render() {
 
     let { fileName, style } = this.props
-    let fileExist = (!this.props.avatarURL[fileName] || this.props.avatarURL[fileName] === '')
-    return (
-      <CardSection style={!fileExist ? { padding: 0 } : { padding: 0, height: 0 }} >
-        {fileExist ? <Text></Text> : (
+     return (
           <CustomCachedImage
           component={Image} 
           style={[styles.image, style]}
           indicator={ProgressBar.Pie} 
-          source={{ uri: this.props.avatarURL[fileName] }}
+          source={{ uri: fileName }}
         />
-        )}
-
-      </CardSection>
     )
 
   }
@@ -101,7 +72,6 @@ export class Img extends Component {
  */
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getImage: (name) => dispatch(imageGalleryActions.dbDownloadImage(name))
 
   }
 }

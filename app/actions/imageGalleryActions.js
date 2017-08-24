@@ -61,17 +61,18 @@ export const downloadForImageGallery = () => {
 /* _____________ CRUD Database_____________ */
 
 /**
- * Save image in the server
- * @param  {string} imageName is the name of image
+ * Save image URL in the server
+ * @param  {string} imageURL is the URL of image
  */
-export const dbSaveImage = (imageName) => {
+export const dbSaveImage = (imageURL,imageFullPath) => {
   return (dispatch, getState) => {
 
     var uid = getState().authorize.uid
     var image = {
       creationDate: moment().unix(),
       deletationDate: '',
-      name: imageName,
+      URL: imageURL,
+      fullPath:imageFullPath,
       ownerUserId: uid,
       lastEditDate: '',
       deleted: false

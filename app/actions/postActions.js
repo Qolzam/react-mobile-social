@@ -39,6 +39,7 @@ export var dbAddPost = (newPost) => {
             tags: newPost.tags || [],
             commentCounter: 0,
             image: newPost.image || '',
+            imageFullPath: newPost.imageFullPath || '',
             video:'',
             disableComments: newPost.disableComments,
             disableSharing: newPost.disableSharing,
@@ -57,47 +58,6 @@ export var dbAddPost = (newPost) => {
      (error) => dispatch(globalActions.showErrorMessage(error.message)))
   }
 }
-
-
-/**
- * Add a post with image
- * @param {object} newPost 
- * @param {function} callBack 
- */
- export const dbAddImagePost = (newPost,image, imageName) => {
-   return(dispatch,getState) => {
-     var uid = getState().authorize.uid
-    if(image)
-      {
-
-    // Create a storage refrence
-    var storegeFile = storageRef.child(`images/${imageName}`)
-    
-        // Upload file
-        var task = storegeFile.put(image)
-        dispatch(globalActions.showLoading())
-    
-        // Upload storage bar
-        task.on('state_changed', (snapshot) => {
-          var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          dispatch(globalActions.progressChange(percentage, true))
-        
-        }, (error) => {
-          dispatch(globalActions.showErrorMessage(error.code))
-          dispatch(globalActions.hideLoading())
-    
-        }, (complete) => {
-          dispatch(globalActions.progressChange(100, false))
-          dispatch(imageGalleryActions.dbSaveImage(imageName))
-          dispatch(dbAddPost({...newPost, image:imageName}))
-          dispatch(globalActions.hideLoading())
-        })
-      }
-
-    
-   }
-
- }
 
 /**
  * Update a post from database

@@ -79,8 +79,8 @@ export class CreatePost extends Component {
       imageHeight: 0,
       imageWidth: 0,
       imageName: '',
-      disableComments : false,
-      disableSharing : false
+      disableComments: false,
+      disableSharing: false
     }
 
   }
@@ -93,7 +93,7 @@ export class CreatePost extends Component {
    * @memberof CreatePost
    */
   savePost = () => {
-    const { navigation, postImage, post, avatar, name } = this.props
+    const { navigation, post, avatar, name,saveImageGallery } = this.props
     const { params = {} } = navigation.state
 
     const { imageSource, text, disableComments, disableSharing } = this.state
@@ -102,19 +102,37 @@ export class CreatePost extends Component {
       return
     }
 
-    var tags = PostAPI.getContentTags(text)    
+
+    var tags = PostAPI.getContentTags(text)
+
 
     if (imageSource !== null) {
       this.handleImage().then((result) => {
-        const {image, fileName} = result
-        postImage({
-          body: text,
-          tags: tags,
-          avatar: avatar,
-          name: name,
-          disableComments: disableComments,
-          disableSharing: disableSharing
-        },image,fileName)
+
+        const { image, fileName } = result
+
+        FileAPI.uploadImage(image, fileName, (percent, status) => {
+          console.log('============= Upload progress ===============');
+          console.log(percent);
+          console.log('====================================');
+        }).then((result) => {
+
+          /* Save post */
+          post({
+            body: text,
+            tags: tags,
+            avatar: avatar,
+            name: name,
+            disableComments: disableComments,
+            disableSharing: disableSharing,
+            image: result.downloadURL,
+            imageFullPath: result.metadata.fullPath
+          })
+
+          /* Add image to image gallery */
+          saveImageGallery(result.downloadURL,result.metadata.fullPath)
+
+        })
 
       }).catch((error) => {
         console.log('=============Error==================');
@@ -165,26 +183,23 @@ export class CreatePost extends Component {
       }
     }
     return new Promise((resolve, reject) => {
-    ImageResizer.createResizedImage(imageSource.uri, width, height, 'JPEG', 80).then((response) => {
-      let { uri } = response
+      ImageResizer.createResizedImage(imageSource.uri, width, height, 'JPEG', 80).then((response) => {
+        let { uri } = response
 
-      const extension = FileAPI.getExtension(response.name)
-      const fileName = (`${uuid()}.${extension}`)
-      const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
-      let uploadBlob = null
+        const extension = FileAPI.getExtension(response.name)
+        const fileName = (`${uuid()}.${extension}`)
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+        let uploadBlob = null
 
-    
+
         fs.readFile(uploadUri, 'base64')
           .then((data) => {
             return Blob.build(data, { type: `${mime};BASE64` })
           })
           .then((image) => {
-            resolve({image, fileName})
+            resolve({ image, fileName })
           })
-        // response.uri is the URI of the new image that can now be displayed, uploaded...
-        // response.path is the path of the new image
-        // response.name is the name of the new image with the extension
-        // response.size is the size of the new image
+
       }).catch((error) => {
         reject(error)
       })
@@ -368,8 +383,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(imageGalleryActions.dbDeleteImage(id))
     },
     post: (post) => dispatch(postActions.dbAddPost(post)),
-    postImage: (post, image, imageName) => dispatch(postActions.dbAddImagePost(post, image, imageName))
-
+    saveImageGallery: (imageURL,imageFullPath) => dispatch(imageGalleryActions.dbSaveImage(imageURL,imageFullPath))
   }
 }
 

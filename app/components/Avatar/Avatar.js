@@ -53,38 +53,12 @@ export class Avatar extends Component {
 
   }
 
-  /**
-   * Get image url if it is not exist on redux store
-   * 
-   * @memberof Img
-   */
-  getImageURL = () => {
-    let { fileName, getImage, imageRequests } = this.props
-             
-    if (fileName && fileName !== '') {
-      if (imageRequests.indexOf(fileName) > -1)
-        return
-      getImage(fileName)
-
-    }
-  }
-
-  componentWillMount() {
-    let { fileName, imageRequests} = this.props
-  
-    if (imageRequests.indexOf(fileName) > -1)
-      return
-    this.getImageURL()
-  }
-
   render() {
 
     let { fileName, size, name, avatarURL, style} = this.props
 
-    let fileNotExist = (!avatarURL[fileName] || avatarURL[fileName] === '') 
-
     return (
-      <UserAvatar size={size} name={name} src={avatarURL[fileName]} style={style}/>
+      <UserAvatar size={size} name={name} src={fileName} style={style}/>
     )
 
   }
@@ -100,8 +74,7 @@ export class Avatar extends Component {
  */
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getImage: (name) => dispatch(imageGalleryActions.dbDownloadImage(name))
-
+   
   }
 }
 
