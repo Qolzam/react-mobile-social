@@ -19,6 +19,22 @@ The React Mobile Social is an open source social app use [React Native](https://
 
 </p>
 
+### Installing
+
+1. Fork the [react-mobile-social](https://github.com/Qolzam/react-mobile-social) repository on Github
+1. Clone your fork to your local machine 
+   ```bash
+   git clone git@github.com:<yourname>/react-mobile-social.git
+   ```
+1. Go to the project root directory 
+   ```bash
+   cd react-mobile-social
+   ```
+1. To install node dependencies use 
+  ```bash
+  yarn install
+  ```
+
 This project adheres to the Contributor Covenant [code of conduct](https://github.com/Qolzam/react-mobile-social/blob/master/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior to amir.gholzam@live.com.
 
