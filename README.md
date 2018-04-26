@@ -13,7 +13,7 @@
 
 The React Mobile Social is an open source social app use [React Native](https://facebook.github.io/react-native/).
 
-# [THIS PROJECT IS UNDER HIGH DEVELOPMENT](https://github.com/Qolzam/react-mobile-social/issues/2). This project will be intergrated with [React Social Network 🚀NEXT Version!🚀](https://github.com/Qolzam/react-social-network) by that you can have both mobile and web at the time with similar implementation 😃. For this branch only resolving bugs would be considered.
+# [THIS PROJECT IS UNDER HIGH DEVELOPMENT](https://github.com/Qolzam/react-mobile-social/issues/2). This project will be integrated with [React Social Network 🚀NEXT Version!🚀](https://github.com/Qolzam/react-social-network) by that you can have both mobile and web at the time with similar implementation 😃. For this branch only resolving bugs would be considered.
 
 <p align="center">
   <a href="#">
